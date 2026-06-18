@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { isAuthenticated, user } = {
-    isAuthenticated: true,
+    isAuthenticated: false,
 
     user: {
       name: "Balaji",
