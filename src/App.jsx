@@ -12,6 +12,8 @@ import { adminLoader, studentLoader, tutorLoader } from "./loaders/roleLoaders";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
 import CreateCourse from "./pages/CreateCourse";
+import MyCourses from "./pages/MyCourses";
+import EditCourse from "./pages/EditCourse";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,16 @@ const router = createBrowserRouter([
   {
     path: "/tutor/create-course",
     element: <CreateCourse />,
+    loader: tutorLoader,
+  },
+  {
+    path: "/tutor/my-courses",
+    element: <MyCourses />,
+    loader: tutorLoader,
+  },
+  {
+    path: "/tutor/edit-course/:id",
+    element: <EditCourse />,
     loader: tutorLoader,
   },
 ]);

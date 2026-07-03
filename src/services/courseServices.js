@@ -36,3 +36,21 @@ export const createCourse = async (courseData) => {
 
   return response.data;
 };
+//get my courses
+export const getMyCourses = async () => {
+  const response = await protectedInstance.get("/courses/my-courses");
+  return response.data;
+};
+
+// UPDATE COURSE
+export const updateCourse = async (id, courseData) => {
+  const response = await protectedInstance.put(`/courses/${id}`, courseData);
+
+  return response.data;
+};
+// DELETE COURSE
+export const deleteCourse = async (id) => {
+  const response = await protectedInstance.delete(`/courses/${id}`);
+
+  return response.data;
+};

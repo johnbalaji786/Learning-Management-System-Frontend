@@ -163,7 +163,7 @@ const Navbar = () => {
                       </Link>
 
                       <Link
-                        to="/my-courses"
+                        to="/tutor/my-courses"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         My Courses
