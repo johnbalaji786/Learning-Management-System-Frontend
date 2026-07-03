@@ -8,5 +8,7 @@ This is a Learning Management System (LMS) built using React for the frontend an
 - Course management (create, update, delete courses)
 - Enrollment management (enroll in courses, view enrolled courses)
 - Responsive design for both desktop and mobile devices
+
 ## Technologies Used
+
 - React

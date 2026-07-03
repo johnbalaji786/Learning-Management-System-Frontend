@@ -1,15 +1,26 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { clearUser } from "../redux/authSlice";
+import { logoutUser } from "../services/authServices";
 
 const Navbar = () => {
-  const { isAuthenticated, user } = {
-    isAuthenticated: false,
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    user: {
-      name: "Balaji",
-      role: "student", // student | tutor | admin
-    },
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      dispatch(clearUser());
+      toast.success("Logged out successfully");
+      navigate("/login", { replace: true });
+    } catch (error) {
+      toast.error("Error logging out");
+      dispatch(clearUser());
+      navigate("/login", { replace: true });
+    }
   };
-
   return (
     <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -171,6 +182,12 @@ const Navbar = () => {
                       >
                         Earnings
                       </Link>
+                      <Link
+                        to="/tutor/create-course"
+                        className="block px-4 py-3 hover:bg-blue-50"
+                      >
+                        Create Course
+                      </Link>
                     </>
                   )}
 
@@ -219,6 +236,7 @@ const Navbar = () => {
                 text-red-600
                 hover:bg-red-50
                 "
+                    onClick={handleLogout}
                   >
                     Logout
                   </button>
