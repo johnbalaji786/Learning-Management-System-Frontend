@@ -1,4 +1,5 @@
 import instance from "../instances/instance";
+import protectedInstance from "../instances/protectedInstance";
 
 export const registerUser = async (userData) => {
   const response = await instance.post("/auth/register", userData);

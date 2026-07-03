@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import instance from "../instances/instance";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,9 +28,19 @@ const Login = () => {
         withCredentials: true,
       });
 
+      const user = response.data.user;
+
+      dispatch(setUser(user));
+
       toast.success(response.data.message || "Login Successful");
 
-      navigate("/");
+      if (user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (user.role === "tutor") {
+        navigate("/tutor/dashboard");
+      } else {
+        navigate("/student/dashboard");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Login Failed");
     }
