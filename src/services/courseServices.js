@@ -33,10 +33,10 @@ export const getCourseById = async (id) => {
 // CREATE COURSE
 export const createCourse = async (courseData) => {
   const response = await protectedInstance.post("/courses", courseData);
-
   return response.data;
 };
-//get my courses
+
+// GET MY COURSES
 export const getMyCourses = async () => {
   const response = await protectedInstance.get("/courses/my-courses");
   return response.data;
@@ -45,12 +45,11 @@ export const getMyCourses = async () => {
 // UPDATE COURSE
 export const updateCourse = async (id, courseData) => {
   const response = await protectedInstance.put(`/courses/${id}`, courseData);
-
   return response.data;
 };
+
 // DELETE COURSE
 export const deleteCourse = async (id) => {
   const response = await protectedInstance.delete(`/courses/${id}`);
-
   return response.data;
 };

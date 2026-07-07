@@ -14,6 +14,10 @@ import CourseDetails from "./pages/CourseDetails";
 import CreateCourse from "./pages/CreateCourse";
 import MyCourses from "./pages/MyCourses";
 import EditCourse from "./pages/EditCourse";
+import MyBookings from "./pages/MyBookings";
+import TutorBookings from "./pages/TutorBookings";
+import ManageUsers from "./pages/ManageUsers";
+import Tutors from "./pages/Tutors";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +84,25 @@ const router = createBrowserRouter([
     path: "/tutor/edit-course/:id",
     element: <EditCourse />,
     loader: tutorLoader,
+  },
+  {
+    path: "/my-bookings",
+    element: <MyBookings />,
+    loader: studentLoader,
+  },
+  {
+    path: "/tutor/bookings",
+    element: <TutorBookings />,
+    loader: tutorLoader,
+  },
+  {
+    path: "/users",
+    element: <ManageUsers />,
+    loader: adminLoader,
+  },
+  {
+    path: "/tutors",
+    element: <Tutors />,
   },
 ]);
 

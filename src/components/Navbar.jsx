@@ -129,25 +129,25 @@ const Navbar = () => {
                       </Link>
 
                       <Link
-                        to="/bookings"
+                        to="/my-bookings"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         My Bookings
                       </Link>
 
-                      <Link
+                      {/* <Link
                         to="/payments"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         Payments
-                      </Link>
-
+                      </Link> */}
+                      {/* 
                       <Link
                         to="/reviews"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         Reviews
-                      </Link>
+                      </Link> */}
                     </>
                   )}
 
@@ -170,18 +170,18 @@ const Navbar = () => {
                       </Link>
 
                       <Link
-                        to="/bookings"
+                        to="/tutor/bookings"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
-                        Bookings
+                        Manage Bookings
                       </Link>
 
-                      <Link
+                      {/* <Link
                         to="/earnings"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         Earnings
-                      </Link>
+                      </Link> */}
                       <Link
                         to="/tutor/create-course"
                         className="block px-4 py-3 hover:bg-blue-50"
@@ -216,12 +216,12 @@ const Navbar = () => {
                         Manage Courses
                       </Link>
 
-                      <Link
+                      {/* <Link
                         to="/payments"
                         className="block px-4 py-3 hover:bg-blue-50"
                       >
                         Payments
-                      </Link>
+                      </Link> */}
                     </>
                   )}
 

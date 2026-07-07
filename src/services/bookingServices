@@ -1,0 +1,63 @@
+import protectedInstance from "../instances/protectedInstance";
+
+// Create Booking
+export const createBooking = async (courseId, bookingData) => {
+  const response = await protectedInstance.post(
+    `/bookings/${courseId}/book`,
+    bookingData,
+  );
+
+  return response.data;
+};
+
+// Get My Bookings
+export const getMyBookings = async () => {
+  const response = await protectedInstance.get("/bookings/my-bookings");
+
+  return response.data;
+};
+
+// Get Single Booking
+export const getBookingById = async (id) => {
+  const response = await protectedInstance.get(`/bookings/${id}`);
+
+  return response.data;
+};
+
+// Tutor Update Booking Status
+export const updateBookingStatus = async (bookingId, data) => {
+  const response = await protectedInstance.put(
+    `/bookings/${bookingId}/status`,
+    data,
+  );
+
+  return response.data;
+};
+// Get Tutor Bookings
+export const getTutorBookings = async () => {
+  const response = await protectedInstance.get("/bookings/tutor-bookings");
+
+  return response.data;
+};
+
+// Add Meeting Link
+export const addMeetingLink = async (bookingId, meetingLink) => {
+  const response = await protectedInstance.put(
+    `/bookings/${bookingId}/meeting`,
+    {
+      meetingLink,
+    },
+  );
+
+  return response.data;
+};
+
+// Add Lesson Recording
+export const addLessonRecording = async (bookingId, data) => {
+  const response = await protectedInstance.put(
+    `/bookings/${bookingId}/recording`,
+    data,
+  );
+
+  return response.data;
+};

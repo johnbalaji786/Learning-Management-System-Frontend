@@ -53,7 +53,7 @@ const CourseCard = ({ course }) => {
 
           <Link
             to={`/courses/${course._id}`}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+            className="mt-4 inline-block bg-blue-600 text-white px-5 py-2 rounded-lg"
           >
             View Details
           </Link>
