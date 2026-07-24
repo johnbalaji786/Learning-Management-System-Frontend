@@ -18,11 +18,13 @@ import MyBookings from "./pages/MyBookings";
 import TutorBookings from "./pages/TutorBookings";
 import ManageUsers from "./pages/ManageUsers";
 import Tutors from "./pages/Tutors";
+import authLoader from "./loaders/authLoader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    loader: authLoader,
   },
   {
     path: "/register",
