@@ -55,7 +55,11 @@ export const tutorLoader = async () => {
 
 export const adminLoader = async () => {
   try {
+    console.log("Calling getMe...");
+
     const response = await getMe();
+
+    console.log("Response:", response);
     const user = response.user;
 
     store.dispatch(setUser(user));
@@ -72,7 +76,10 @@ export const adminLoader = async () => {
 
     return response;
   } catch (error) {
-    console.error("Admin loader error:", error);
+    console.log("Error:", error);
+    console.log("Status:", error.response?.status);
+    console.log("Data:", error.response?.data);
+
     store.dispatch(clearUser());
     return redirect("/login");
   }
