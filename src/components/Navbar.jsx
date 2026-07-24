@@ -6,12 +6,14 @@ import { clearUser, setUser } from "../redux/authSlice";
 import { getMe, logoutUser } from "../services/authServices";
 
 const Navbar = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!loading) return;
+
     const loadUser = async () => {
       try {
         const response = await getMe();
@@ -21,10 +23,14 @@ const Navbar = () => {
       }
     };
 
-    if (!isAuthenticated) {
-      loadUser();
-    }
-  }, [dispatch, isAuthenticated]);
+    loadUser();
+  }, [dispatch, loading]);
+
+  if (loading) {
+    return (
+      <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 h-16"></nav>
+    );
+  }
 
   const handleLogout = async () => {
     try {
@@ -104,27 +110,7 @@ const Navbar = () => {
                   </div>
                 </button>
 
-                <div
-                  className="
-                  absolute
-                  right-0
-                  top-full
-                  mt-2
-                  w-60
-                  bg-white
-                  rounded-xl
-                  shadow-lg
-                  border
-                  border-gray-100
-                  opacity-0
-                  invisible
-                  group-hover:opacity-100
-                  group-hover:visible
-                  transition-all
-                  duration-200
-                  z-50
-                "
-                >
+                <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   {user?.role === "student" && (
                     <>
                       <Link
@@ -203,8 +189,8 @@ const Navbar = () => {
                   <hr />
 
                   <button
-                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
                     onClick={handleLogout}
+                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
                   >
                     Logout
                   </button>
