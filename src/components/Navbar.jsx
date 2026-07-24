@@ -1,13 +1,30 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { clearUser } from "../redux/authSlice";
-import { logoutUser } from "../services/authServices";
+import { clearUser, setUser } from "../redux/authSlice";
+import { getMe, logoutUser } from "../services/authServices";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const response = await getMe();
+        dispatch(setUser(response.user));
+      } catch (error) {
+        dispatch(clearUser());
+      }
+    };
+
+    if (!isAuthenticated) {
+      loadUser();
+    }
+  }, [dispatch, isAuthenticated]);
 
   const handleLogout = async () => {
     try {
@@ -21,12 +38,11 @@ const Navbar = () => {
       navigate("/login", { replace: true });
     }
   };
+
   return (
     <nav className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
-          {/* LOGO */}
-
           <Link to="/" className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center shadow-md">
               <span className="text-white font-bold text-lg">LMS</span>
@@ -34,12 +50,9 @@ const Navbar = () => {
 
             <div>
               <h1 className="font-bold text-lg text-gray-900">LearnHub</h1>
-
               <p className="text-xs text-gray-500">Learn • Grow • Succeed</p>
             </div>
           </Link>
-
-          {/* NAVIGATION */}
 
           <div className="flex items-center gap-8">
             <Link
@@ -78,8 +91,6 @@ const Navbar = () => {
               </>
             ) : (
               <div className="relative group">
-                {/* PROFILE */}
-
                 <button className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
                     {user?.name?.charAt(0).toUpperCase()}
@@ -87,38 +98,33 @@ const Navbar = () => {
 
                   <div className="text-left">
                     <p className="font-medium text-gray-800">{user?.name}</p>
-
                     <p className="text-xs text-gray-500 capitalize">
                       {user?.role}
                     </p>
                   </div>
                 </button>
 
-                {/* DROPDOWN */}
-
                 <div
                   className="
-                absolute 
-                right-0 
-                top-full 
-                mt-2
-                w-60
-                bg-white
-                rounded-xl
-                shadow-lg
-                border
-                border-gray-100
-                opacity-0
-                invisible
-                group-hover:opacity-100
-                group-hover:visible
-                transition-all
-                duration-200
-                z-50
+                  absolute
+                  right-0
+                  top-full
+                  mt-2
+                  w-60
+                  bg-white
+                  rounded-xl
+                  shadow-lg
+                  border
+                  border-gray-100
+                  opacity-0
+                  invisible
+                  group-hover:opacity-100
+                  group-hover:visible
+                  transition-all
+                  duration-200
+                  z-50
                 "
                 >
-                  {/* STUDENT MENU */}
-
                   {user?.role === "student" && (
                     <>
                       <Link
@@ -134,24 +140,8 @@ const Navbar = () => {
                       >
                         My Bookings
                       </Link>
-
-                      {/* <Link
-                        to="/payments"
-                        className="block px-4 py-3 hover:bg-blue-50"
-                      >
-                        Payments
-                      </Link> */}
-                      {/* 
-                      <Link
-                        to="/reviews"
-                        className="block px-4 py-3 hover:bg-blue-50"
-                      >
-                        Reviews
-                      </Link> */}
                     </>
                   )}
-
-                  {/* TUTOR MENU */}
 
                   {user?.role === "tutor" && (
                     <>
@@ -176,12 +166,6 @@ const Navbar = () => {
                         Manage Bookings
                       </Link>
 
-                      {/* <Link
-                        to="/earnings"
-                        className="block px-4 py-3 hover:bg-blue-50"
-                      >
-                        Earnings
-                      </Link> */}
                       <Link
                         to="/tutor/create-course"
                         className="block px-4 py-3 hover:bg-blue-50"
@@ -190,8 +174,6 @@ const Navbar = () => {
                       </Link>
                     </>
                   )}
-
-                  {/* ADMIN MENU */}
 
                   {user?.role === "admin" && (
                     <>
@@ -215,27 +197,13 @@ const Navbar = () => {
                       >
                         Manage Courses
                       </Link>
-
-                      {/* <Link
-                        to="/payments"
-                        className="block px-4 py-3 hover:bg-blue-50"
-                      >
-                        Payments
-                      </Link> */}
                     </>
                   )}
 
                   <hr />
 
                   <button
-                    className="
-                w-full
-                text-left
-                px-4
-                py-3
-                text-red-600
-                hover:bg-red-50
-                "
+                    className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
                     onClick={handleLogout}
                   >
                     Logout
