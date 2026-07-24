@@ -24,7 +24,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: authLoader,
   },
   {
     path: "/register",
