@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import { getCourseById } from "../services/courseServices";
 import { createBooking } from "../services/bookingServices";
@@ -13,7 +14,7 @@ const CourseDetails = () => {
   const { id } = useParams();
 
   const [course, setCourse] = useState(null);
-
+  const { user } = useSelector((state) => state.auth);
   const [bookingData, setBookingData] = useState({
     bookingDate: "",
     startTime: "",
@@ -97,42 +98,64 @@ const CourseDetails = () => {
             </p>
           </div>
 
-          <hr className="my-8" />
+          {user?.role === "student" && (
+            <>
+              <hr className="my-8" />
 
-          <h2 className="text-2xl font-semibold mb-5">Book Lesson</h2>
+              <h2 className="text-2xl font-semibold mb-5">Book Lesson</h2>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <input
-              type="date"
-              name="bookingDate"
-              value={bookingData.bookingDate}
-              onChange={handleChange}
-              className="border rounded-lg p-3"
-            />
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Booking Date
+                  </label>
 
-            <input
-              type="time"
-              name="startTime"
-              value={bookingData.startTime}
-              onChange={handleChange}
-              className="border rounded-lg p-3"
-            />
+                  <input
+                    type="date"
+                    name="bookingDate"
+                    value={bookingData.bookingDate}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg p-3"
+                  />
+                </div>
 
-            <input
-              type="time"
-              name="endTime"
-              value={bookingData.endTime}
-              onChange={handleChange}
-              className="border rounded-lg p-3"
-            />
-          </div>
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Start Time
+                  </label>
 
-          <button
-            onClick={handleBooking}
-            className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg"
-          >
-            Book Lesson
-          </button>
+                  <input
+                    type="time"
+                    name="startTime"
+                    value={bookingData.startTime}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg p-3"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    End Time
+                  </label>
+
+                  <input
+                    type="time"
+                    name="endTime"
+                    value={bookingData.endTime}
+                    onChange={handleChange}
+                    className="w-full border rounded-lg p-3"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleBooking}
+                className="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg"
+              >
+                Book Lesson
+              </button>
+            </>
+          )}
 
           <hr className="my-10" />
 
