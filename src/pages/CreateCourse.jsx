@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import {
+  BookOpen,
+  FileText,
+  GraduationCap,
+  IndianRupee,
+  Clock3,
+  Sparkles,
+} from "lucide-react";
+
 import Navbar from "../components/Navbar";
 import { createCourse } from "../services/courseServices";
 
@@ -47,105 +57,164 @@ const CreateCourse = () => {
     <>
       <Navbar />
 
-      <div className="max-w-3xl mx-auto py-10 px-6">
-        <div className="bg-white shadow-lg rounded-xl p-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">
-            Create Course
-          </h1>
+      <div className="min-h-screen bg-slate-50 py-10">
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Hero */}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block mb-2 font-medium">Course Title</label>
-
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 font-medium">Description</label>
-
-              <textarea
-                rows="4"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 font-medium">Subject</label>
-
-              <input
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-5">
-              <div>
-                <label className="block mb-2 font-medium">Price</label>
-
-                <input
-                  type="number"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  required
-                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                />
+          <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 rounded-3xl p-10 shadow-2xl text-white">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center">
+                <Sparkles size={34} />
               </div>
 
               <div>
-                <label className="block mb-2 font-medium">
-                  Duration (Hours)
+                <h1 className="text-4xl font-bold">Create New Course</h1>
+
+                <p className="mt-2 text-blue-100 text-lg">
+                  Publish a professional course and start teaching students.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Form Card */}
+
+          <div className="bg-white rounded-3xl shadow-xl border mt-10 p-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Title */}
+
+              <div>
+                <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                  <BookOpen size={18} className="text-blue-600" />
+                  Course Title
                 </label>
 
                 <input
-                  type="number"
-                  name="duration"
-                  value={formData.duration}
+                  type="text"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
+                  placeholder="Enter course title"
                   required
-                  className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block mb-2 font-medium">Level</label>
+              {/* Description */}
 
-              <select
-                name="level"
-                value={formData.level}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-            </div>
+              <div>
+                <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                  <FileText size={18} className="text-indigo-600" />
+                  Course Description
+                </label>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition"
-            >
-              {loading ? "Creating..." : "Create Course"}
-            </button>
-          </form>
+                <textarea
+                  rows="6"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Describe your course..."
+                  required
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                />
+              </div>
+
+              {/* Subject */}
+
+              <div>
+                <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                  <GraduationCap size={18} className="text-green-600" />
+                  Subject
+                </label>
+
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="JavaScript, React, Node.js..."
+                  required
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                />
+              </div>
+
+              {/* Price & Duration */}
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                    <IndianRupee size={18} className="text-red-600" />
+                    Price
+                  </label>
+
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="500"
+                    required
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                    <Clock3 size={18} className="text-orange-500" />
+                    Duration (Hours)
+                  </label>
+
+                  <input
+                    type="number"
+                    name="duration"
+                    value={formData.duration}
+                    onChange={handleChange}
+                    placeholder="20"
+                    required
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              {/* Level */}
+
+              <div>
+                <label className="flex items-center gap-2 font-semibold text-gray-700 mb-2">
+                  <GraduationCap size={18} className="text-purple-600" />
+                  Course Level
+                </label>
+
+                <select
+                  name="level"
+                  value={formData.level}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+              {/* Submit Button */}
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-700 hover:via-indigo-700 hover:to-cyan-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Creating Course...
+                    </div>
+                  ) : (
+                    "🚀 Create Course"
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>
