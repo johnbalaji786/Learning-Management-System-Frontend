@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import {
   BookOpen,
   GraduationCap,
@@ -23,6 +25,7 @@ const CourseDetails = () => {
   const { user } = useSelector((state) => state.auth);
 
   const [course, setCourse] = useState(null);
+  const navigate = useNavigate();
 
   const [bookingData, setBookingData] = useState({
     bookingDate: "",
@@ -55,11 +58,15 @@ const CourseDetails = () => {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleBooking = async () => {
     try {
       await createBooking(id, bookingData);
+
       toast.success("Lesson booked successfully");
+
+      setTimeout(() => {
+        navigate("/my-bookings");
+      }, 1000);
     } catch (error) {
       toast.error(error.response?.data?.message || "Booking failed");
     }

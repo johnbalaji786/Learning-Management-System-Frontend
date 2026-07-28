@@ -269,7 +269,6 @@ const Navbar = () => {
               {mobileMenu ? <HiX size={28} /> : <HiMenu size={28} />}
             </button>
           </div>
-          id="g1j5vp"
         </div>
       </div>
 
