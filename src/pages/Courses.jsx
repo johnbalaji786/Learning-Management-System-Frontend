@@ -41,28 +41,36 @@ const Courses = () => {
     <>
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900">
-              Explore Courses
-            </h1>
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div>
+              <span className="text-blue-600 font-semibold uppercase tracking-widest">
+                LearnHub Courses
+              </span>
 
-            <p className="text-gray-500 mt-2">Learn from experienced tutors.</p>
+              <h1 className="text-5xl font-extrabold text-gray-900 mt-2">
+                Explore Courses
+              </h1>
+
+              <p className="text-gray-500 mt-3 text-lg">
+                Discover high quality courses taught by expert tutors.
+              </p>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Search courses..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full md:w-96 rounded-2xl border border-gray-300 bg-white px-5 py-4 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+            />
           </div>
-
-          <input
-            type="text"
-            placeholder="Search courses..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-80 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
         </div>
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
           </div>
         ) : filteredCourses.length === 0 ? (
           <div className="text-center py-20">
@@ -73,7 +81,7 @@ const Courses = () => {
             <p className="text-gray-500 mt-2">Try another search keyword.</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
             {filteredCourses.map((course) => (
               <CourseCard key={course._id} course={course} />
             ))}

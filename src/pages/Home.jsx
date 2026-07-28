@@ -89,7 +89,7 @@ const Home = () => {
               <span className="inline-block bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-semibold">
                 Why Choose Us
               </span>
-              ```
+
               <h2 className="text-5xl font-extrabold text-gray-900 mt-4">
                 Why Choose <span className="text-blue-600">LearnHub?</span>
               </h2>
@@ -147,7 +147,6 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            ```
           </div>
         </section>
         {/* Statistics */}
@@ -211,7 +210,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-        ```jsx
         {/* Premium Footer */}
         <footer className="bg-gray-950 text-gray-300 pt-16 pb-8">
           <div className="max-w-7xl mx-auto px-6">
@@ -294,7 +292,7 @@ const Home = () => {
 
                 <p className="mb-2">📧 support@learnhub.com</p>
 
-                <p className="mb-2">📞 +91 98765 43210</p>
+                <p className="mb-2">📞 +91 1234567890</p>
 
                 <p>📍 Chennai, India</p>
               </div>
@@ -324,7 +322,6 @@ const Home = () => {
             </div>
           </div>
         </footer>
-        ```
       </div>
     </>
   );

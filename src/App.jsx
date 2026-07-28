@@ -19,6 +19,7 @@ import TutorBookings from "./pages/TutorBookings";
 import ManageUsers from "./pages/ManageUsers";
 import Tutors from "./pages/Tutors";
 import authLoader from "./loaders/authLoader";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
   {
     path: "/tutors",
     element: <Tutors />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
