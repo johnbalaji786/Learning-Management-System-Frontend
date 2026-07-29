@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { clearUser, setUser } from "../redux/authSlice";
+import { clearUser, setUser, startLoading } from "../redux/authSlice";
 import { getMe, logoutUser } from "../services/authServices";
-import { startLoading, setUser, clearUser } from "../redux/authSlice";
 
 const Navbar = () => {
   const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
