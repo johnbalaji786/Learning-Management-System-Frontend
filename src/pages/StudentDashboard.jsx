@@ -68,7 +68,7 @@ const StudentDashboard = () => {
                 <h2 className="text-gray-500 font-medium">Total Payments</h2>
 
                 <p className="text-4xl font-bold text-green-600 mt-2">
-                  ₹{stats.totalPayments}
+                  {stats.totalPayments}
                 </p>
               </div>
             </motion.div>
