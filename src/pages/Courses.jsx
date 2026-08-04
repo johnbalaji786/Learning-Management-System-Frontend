@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import { getAllCourses } from "../services/courseServices";
 import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -10,15 +11,18 @@ const Courses = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const [searchParams] = useSearchParams();
+  const tutorId = searchParams.get("tutor") || "";
+
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [tutorId]);
 
   const fetchCourses = async () => {
     try {
       setLoading(true);
 
-      const response = await getAllCourses();
+      const response = await getAllCourses(1, 10, "", "", "", "", tutorId);
 
       setCourses(response.courses);
       setFilteredCourses(response.courses);
@@ -50,7 +54,7 @@ const Courses = () => {
               </span>
 
               <h1 className="text-5xl font-extrabold text-gray-900 mt-2">
-                Explore Courses
+                {tutorId ? "Tutor Courses" : "Explore Courses"}
               </h1>
 
               <p className="text-gray-500 mt-3 text-lg">
@@ -66,27 +70,27 @@ const Courses = () => {
               className="w-full md:w-96 rounded-2xl border border-gray-300 bg-white px-5 py-4 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             />
           </div>
+
+          {loading ? (
+            <div className="flex justify-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
+            </div>
+          ) : filteredCourses.length === 0 ? (
+            <div className="text-center py-20">
+              <h2 className="text-2xl font-semibold text-gray-700">
+                No Courses Found
+              </h2>
+
+              <p className="text-gray-500 mt-2">Try another search keyword.</p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
+              {filteredCourses.map((course) => (
+                <CourseCard key={course._id} course={course} />
+              ))}
+            </div>
+          )}
         </div>
-
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
-          </div>
-        ) : filteredCourses.length === 0 ? (
-          <div className="text-center py-20">
-            <h2 className="text-2xl font-semibold text-gray-700">
-              No Courses Found
-            </h2>
-
-            <p className="text-gray-500 mt-2">Try another search keyword.</p>
-          </div>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
-            {filteredCourses.map((course) => (
-              <CourseCard key={course._id} course={course} />
-            ))}
-          </div>
-        )}
       </div>
     </>
   );

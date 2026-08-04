@@ -9,6 +9,7 @@ export const getAllCourses = async (
   subject = "",
   courseType = "",
   location = "",
+  tutor = "",
 ) => {
   const response = await instance.get("/courses", {
     params: {
@@ -18,6 +19,7 @@ export const getAllCourses = async (
       subject,
       courseType,
       location,
+      tutor,
     },
   });
 
