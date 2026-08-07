@@ -4,6 +4,23 @@ A modern **Learning Management System (LMS)** built using the **MERN Stack**. Le
 
 ---
 
+# Demo Credentials
+
+## Student
+
+Email: student@example.com
+Password: 123456
+
+## Tutor
+
+Email: tutor@example.com
+Password: 123456
+
+## Admin
+
+Email: admin@example.com
+Password: 123456
+
 ## 🚀 Live Demo
 
 ### Frontend

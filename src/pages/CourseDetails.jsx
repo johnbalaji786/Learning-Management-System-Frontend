@@ -59,6 +59,18 @@ const CourseDetails = () => {
     });
   };
   const handleBooking = async () => {
+    if (
+      !bookingData.bookingDate ||
+      !bookingData.startTime ||
+      !bookingData.endTime
+    ) {
+      return toast.error("Please fill all booking details");
+    }
+
+    if (bookingData.startTime >= bookingData.endTime) {
+      return toast.error("End time must be greater than Start time");
+    }
+
     try {
       await createBooking(id, bookingData);
 
@@ -214,7 +226,12 @@ const CourseDetails = () => {
           {/* Reviews */}
 
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-10 border">
-            <ReviewForm courseId={course._id} refreshReviews={reloadReviews} />
+            {user && user.role === "student" && (
+              <ReviewForm
+                courseId={course._id}
+                refreshReviews={reloadReviews}
+              />
+            )}
 
             <div className="mt-8">
               <ReviewList courseId={course._id} refresh={refreshReviews} />

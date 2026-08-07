@@ -20,6 +20,7 @@ import ManageUsers from "./pages/ManageUsers";
 import Tutors from "./pages/Tutors";
 import authLoader from "./loaders/authLoader";
 import NotFound from "./pages/NotFound";
+import TutorPayments from "./pages/TutorPayments";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,7 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
+  <Route path="/tutor/payments" element={<TutorPayments />} />,
 ]);
 
 const App = () => {

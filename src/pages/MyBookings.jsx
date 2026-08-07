@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 import {
   Calendar,
   Clock,
@@ -15,9 +16,10 @@ import {
 
 import Navbar from "../components/Navbar";
 import { getMyBookings } from "../services/bookingServices";
-import { makePayment } from "../services/paymentServices";
 
+import { createOrder, verifyPayment } from "../services/paymentServices";
 const MyBookings = () => {
+  const user = useSelector((state) => state.user);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,13 +41,39 @@ const MyBookings = () => {
     }
   };
 
-  const handlePayment = async (bookingId) => {
+  const handlePayment = async (booking) => {
     try {
-      await makePayment(bookingId);
+      const data = await createOrder(booking._id);
 
-      toast.success("Payment Successful");
+      const options = {
+        key: data.key,
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: "LearnHub LMS",
+        description: booking.course?.title,
+        order_id: data.order.id,
 
-      fetchBookings();
+        handler: async function () {
+          await verifyPayment(booking._id);
+
+          toast.success("Payment Successful");
+
+          fetchBookings();
+        },
+
+        prefill: {
+          name: booking.user?.name || "",
+          email: booking.user?.email || "",
+        },
+
+        theme: {
+          color: "#2563eb",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+
+      razorpay.open();
     } catch (error) {
       toast.error(error.response?.data?.message || "Payment Failed");
     }
@@ -246,7 +274,7 @@ const MyBookings = () => {
                   <div className="px-8 pb-8 flex flex-wrap gap-4">
                     {booking.paymentStatus !== "paid" && (
                       <button
-                        onClick={() => handlePayment(booking._id)}
+                        onClick={() => handlePayment(booking)}
                         className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition"
                       >
                         Pay Now
